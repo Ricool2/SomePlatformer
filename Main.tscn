@@ -1,15 +1,29 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Demon.tscn" type="PackedScene" id=2]
+[ext_resource path="res://1648229853_2-kartinkof-club-p-khochu-arbuz-mem-2.jpg" type="Texture" id=3]
 
 [node name="Main" type="Node"]
 
-[node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 208, 117 )
-
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2( 0, 8 )
+collision_layer = 3
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
 position = Vector2( 193, 111 )
-polygon = PoolVector2Array( -113, -15, -65, 17, 143, 17, 167, -15, 167, 65, -113, 65 )
+polygon = PoolVector2Array( -193, -55, -1, -55, -65, 17, 231, 17, 231, -55, 287, -55, 287, 65, -193, 65 )
+
+[node name="Sprite" type="Sprite" parent="StaticBody2D"]
+visible = false
+position = Vector2( 240, 248 )
+scale = Vector2( 0.8, 0.710059 )
+texture = ExtResource( 3 )
+
+[node name="Demon" parent="." instance=ExtResource( 2 )]
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 80, 48 )
+
+[connection signal="query_for_position" from="Demon" to="Player" method="response_query"]
+[connection signal="position_answer" from="Player" to="Demon" method="teleport_ability"]
